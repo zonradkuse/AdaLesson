@@ -142,6 +142,7 @@ procedure Parser is
                   when others =>
                      raise ExpressionWrongSymbol;
                end case;
+            
          end case;
 
          <<proceed>> Get(Ch);

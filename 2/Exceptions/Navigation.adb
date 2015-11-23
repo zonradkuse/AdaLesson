@@ -43,7 +43,7 @@ begin
 						Get_Position3(pos);
 					exception
 						when Position_Failure => 
-							Put_Line("Everything handled and we still failed. Raise Navigation Position_Failure");
+							Put_Line("Everything handled and we still failed. Raise Navigation_Failure");
 							raise Navigation_Failure;
 					end;
 			end;

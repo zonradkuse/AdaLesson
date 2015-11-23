@@ -71,43 +71,80 @@ procedure Parser is
          --
          -- Beginn des Scanner-Blocks
 
+         case state is
+            when 0 =>
+               -- ().+-*/ to sym
+               -- Digit, Letter change state
+               case Ch is
+                  when '(' => 
+                     Sym := LBracket;
+                     goto consume;
+                  when ')' =>
+                     Sym := RBracket;
+                     goto consume;
+                  when '.' =>
+                     Sym := Period;
+                     goto consume;
+                  when '+' =>
+                     Sym := Plus;
+                     goto consume;
+                  when '*' =>
+                     Sym := Times;
+                     goto consume;
+                  when '/' =>
+                     Sym := Slash;
+                     goto consume;
+                  when '-' =>
+                     Sym := Minus;
+                     goto consume;
+                  when Letter =>
+                     state := 1;
+                     currentILen := 0;
+                     goto proceed;
+                  when Digit =>
+                     state := 2;
+                     currentILen := 0;
+                     goto proceed;
+                  when others =>
+                     raise ExpressionWrongSymbol;
+               end case;
+            when 1 => -- Letter
+               if currentILen > ILen then
+                  raise NumberOrIdentTooLong;
+               end if;
+               case Ch is
+                  when '(' | ')' | '.' | '*' | '+' | '-' | '/' =>
+                     state := 0;
+                     Sym := Number;
+                     goto ende;
+                  when Digit =>
+                     raise ExpressionWrongSymbol;
+                  when Letter =>
+                     currentILen := currentILen + 1;
+                     goto proceed;
+                  when others =>
+                     raise ExpressionWrongSymbol;
+               end case;
+            when 2 =>
+               if currentILen > NMax then
+                  raise NumberOrIdentTooLong;
+               end if;
+               case Ch is
+                  when '(' | ')' | '.' | '*' | '+' | '-' | '/' =>
+                     state := 0;
+                     Sym := Number;
+                     goto ende;
+                  when Letter => 
+                     raise ExpressionWrongSymbol;
+                  when Digit =>
+                     currentILen := currentILen + 1;
+                     goto proceed;
+                  when others =>
+                     raise ExpressionWrongSymbol;
+               end case;
+         end case;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         <<proceed>> Get(Ch);
          -- Ende des Scanner-Blocks
          <<continue>>
          null;

@@ -20,5 +20,74 @@ When an exception is raised and it is not handled, there occurs a runtime error 
 
 In a nutshell, exceptions are a much more modular solutions than `goto` statements.
 
+## b
+```Ada
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+procedure Navigation is -- main procedure embedding Position Calculation
+    Position_Failure : exception;
+    Navigation_Failure : exception;
+
+    --
+    -- Begin Mock
+    --
+    subtype Position_Type is Integer range 0..100;
+    
+    procedure Get_Position1 (Position : out Position_Type) is 
+
+    begin
+        Put_Line("Entered 1. Position is: " & Integer'Image(Position));
+        raise Position_Failure;
+    end Get_Position1;
+
+    procedure Get_Position2 (Position : out Position_Type) is 
+
+    begin
+        Put_Line("Entered 2. Position is: " & Integer'Image(Position));
+        raise Position_Failure;
+    end Get_Position2;
+
+    procedure Get_Position3 (Position : out Position_Type) is 
+
+    begin
+        Put_Line("Entered 3. Position is: " & Integer'Image(Position));
+        raise Position_Failure;
+    end Get_Position3;
+
+    --
+    -- End Mock
+    --
+
+    pos : Position_Type;
+
+begin
+    
+    --
+    -- Interesting Part!
+    --
+    begin
+        Get_Position1(pos);
+    exception
+        when Position_Failure => 
+            begin
+                Get_Position2(pos);
+            exception
+                when Position_Failure =>
+                    begin
+                        Get_Position3(pos);
+                    exception
+                        when Position_Failure => 
+                            Put_Line("Everything handled and we still failed. Raise Navigation_Failure");
+                            raise Navigation_Failure;
+                    end;
+            end;
+    end;
+
+end Navigation;
+```
+
 # Task 4
+
+## a
 

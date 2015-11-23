@@ -13,6 +13,17 @@ procedure test is
     --type Week_Number_Type is new Integer range 1..52;
     type Week_Number_Type is range 1..52;
     --subtype Week_Number_Type is Integer range 1..52;
+
+    type R (J: positive) is record
+        S: String (1..J);
+    end record;
+    A: array(1..10) of R(100);
+
+type Car (wheelcount : positive := 4) is
+    record
+         wheels : Integer := wheelcount;
+         axis : Integer := wheelcount/2;
+    end record;
 begin -- test
     Hour_Number := Late_Hour_Number;
     Late_Hour_Number := Hour_Number;

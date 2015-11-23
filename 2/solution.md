@@ -10,6 +10,37 @@ geometry: margin=1in
 
 # Task 1
 
+## a
+
+### default value
+Components might have a default value, of course. One could easily initialize a record and omit already defaulted values. Every value that has a default value which will be used as the default value to initialize.
+
+```Ada
+type Car (wheelcount : positive := 4) is -- default value for wheels
+    record
+         wheels : Integer := wheelcount; -- default value for component
+         axis : Integer := wheelcount/2;
+         seats : Integer := 5; -- default value without dependency of discriminant.
+    end record;
+```
+
+### discriminant constraint
+The discriminant can be used to distinguish between slightly different records depending on the discriminant. For example:  
+```Ada
+type PERSON(SEX :  GENDER  :=  F) is
+  record
+    AGE :  INTEGER range 0 .. 123;
+    case SEX is
+      when M =>  BEARDED :  BOOLEAN;
+      when F =>  CHILDREN  :  INTEGER range 0 .. 20;
+    end case;
+  end record;
+```
+taken from [http://archive.adaic.com/standards/83rat/html/ratl-04-07.html#4.7.2]().
+
+## b
+No. The discriminant of R is missing. The last line should look like: `A : array(1..10) of R(100)` where 100 is just an example value.
+
 # Task 2
 
 ## a
@@ -119,4 +150,5 @@ end Navigation;
 ## b
 
 `Parser/parser.adb`  
-
+Error handling using exceptions is a good way for providing a centralized and clean way of error handling. When using simple return statements, it is not clear, which error when has to be handled. Exceptions provide a clean centralized solution by attaching error handlers to the procedure where it is raised. On the other hand exception handling bloates the code. For smaller code fragments and non-production code snippets exceptions are probably over engineered if not really necessary for reasons like failing fast and providing fall back solutions for some computation (e.g. nicely shown in task 3).   
+In the case of a parser, exceptions are probably the nicer soltuion. Exceptions should be used when really an error like an invalid character occurs. This needs no be handled and if it is not recoverable, the program should fail with some helpful error message. Error Handling becomes a central feature of the parser and should therefor not be done using return statements that need further interpretations.

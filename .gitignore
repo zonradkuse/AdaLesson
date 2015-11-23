@@ -4,3 +4,5 @@
 !*.adb
 !*.ads
 
+
+.DS_Store

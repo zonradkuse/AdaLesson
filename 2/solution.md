@@ -65,11 +65,12 @@ One can assign type - subtype and the other way round, without having the compil
 
 Therefor legal assignments are:  
 1, 2, 4,
+Nevertheless, 2 can lead to an error during compile time or runtime if the range does not fit.
 
 # Task 3
 
 ## a
-Exceptions are automatically raised propagated a program's structure. In case a exception `e` is not handled in U, control leaves U nad might be handled here. If not, again, U is left and propagated through the program until the program terminates. This can be build with `goto` statements, too, but only in knowledge of the callstack.
+Exceptions are automatically raised propagated a program's structure. In case a exception `e` is not handled in U, control leaves U and might be handled here. If not, again, U is left and propagated through the program until the program terminates. This can be build with `goto` statements, too, but only in knowledge of the callstack.
 When an exception is raised and it is not handled, there occurs a runtime error with information where the first entrance into the callstack was and where the respective raise statement is located. This information is hard to rebuild with `goto` statements. It even gets harder considering exception messages, which can be specified, too. Then a simple `goto` is not enough as no information can be passed to the handler without using global data structures.  
 
 In a nutshell, exceptions are a much more modular solutions than `goto` statements.
@@ -151,4 +152,4 @@ end Navigation;
 
 `Parser/parser.adb`  
 Error handling using exceptions is a good way for providing a centralized and clean way of error handling. When using simple return statements, it is not clear, which error when has to be handled. Exceptions provide a clean centralized solution by attaching error handlers to the procedure where it is raised. On the other hand exception handling bloates the code. For smaller code fragments and non-production code snippets exceptions are probably over engineered if not really necessary for reasons like failing fast and providing fall back solutions for some computation (e.g. nicely shown in task 3).   
-In the case of a parser, exceptions are probably the nicer soltuion. Exceptions should be used when really an error like an invalid character occurs. This needs no be handled and if it is not recoverable, the program should fail with some helpful error message. Error Handling becomes a central feature of the parser and should therefor not be done using return statements that need further interpretations.
+In the case of a parser, exceptions are probably the better solution. Exceptions should be used when really an error like an invalid character occurs. This needs not be handled and if it is not recoverable, the program should fail with some helpful error message. Error Handling becomes a central feature of the parser and should therefore not be done using return statements that need further interpretations.

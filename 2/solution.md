@@ -12,6 +12,29 @@ geometry: margin=1in
 
 # Task 2
 
+## a
+
+### valid integer type declaration
+`type Week_Number_Type is range 1..52;`  
+
+Create a type from scratch. Using range it becomes an integer like type but is a type for its own.
+
+### derived type declaration
+`type Week_Number_Type is new Integer range 1..52;`  
+
+Derived Type inherits primitive operations from the parent type but still is incompatible. The type is a "new" kind of integer.
+
+### subtype declaration
+`subtype Week_Number_Type is Integer range 1..52;`   
+
+Subtype is compatible to parent and sibling types. Therefor it is not a "new" subtype.
+
+## b
+One can assign type - subtype and the other way round, without having the compiler complaining about the assignment. If there are assignments of two different types (e.g. Hour... - Month... - they are declared as types, not subtypes) the compiler will complain about it.
+
+Therefor legal assignments are:  
+1, 2, 4,
+
 # Task 3
 
 ## a
@@ -90,4 +113,10 @@ end Navigation;
 # Task 4
 
 ## a
+
+`Parser/parser.adb` 
+
+## b
+
+`Parser/parser.adb`  
 

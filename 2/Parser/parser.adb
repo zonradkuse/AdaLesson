@@ -181,7 +181,9 @@ procedure Parser is
          procedure Factor (fsys : SymbolSet) is
          begin
             Put_Line(">>> Factor.enter");
-            if not IsIn(Sym, FacBeginSyms) then return; end if; -- Bei Vorliegen eines ungeeigneten Symbols sollte eine Fehlerbehandlung erfolgen
+            if not IsIn(Sym, FacBeginSyms) then 
+               raise ExpressionWrongSymbol;
+            end if; -- Bei Vorliegen eines ungeeigneten Symbols sollte eine Fehlerbehandlung erfolgen
             while IsIn(Sym, FacBeginSyms) loop
                if Sym = Ident or Sym = Number then
                   GetSym;
@@ -191,15 +193,27 @@ procedure Parser is
                   if Sym = RBracket then
                      GetSym;
                   else
-                     return; -- Auf eine linke Klammer muss eine rechte folgen, sonst Fehler
+                     raise NoClosingBracket;
                   end if;
                end if;
             end loop;
-            if not IsIn(Sym, Fsys) then return; end if; -- Das nächste Symbol sollte in der Follow-Menge von Factor liegen, sonst Fehler
+            if not IsIn(Sym, Fsys) then 
+               raise WrongSymbolFactorEnd; 
+            end if; -- Das nächste Symbol sollte in der Follow-Menge von Factor liegen, sonst Fehler
             Put_Line("<<< Factor.exit");
             -- Im Fehlerfall sollte dieser gezählt werden und durch ein Recovery
             -- so fortgefahren werden, dass Factor als nächste Parserregel angewendet
             -- werden kann.
+            exception
+               when ExpressionWrongSymbol =>
+                  Put("Nope. Symbol not allowed in Factor.");
+                  Recover(fsys);
+               when WrongSymbolFactorEnd =>
+                  Put("Nope. Factor End Bad.");
+                  Recover(fsys);
+               when NoClosingBracket =>
+                  Put("Nope. Closing Bracket Missing");
+                  Recover(fsys);                  
          end Factor;
 
       begin

@@ -13,7 +13,7 @@ geometry: margin=1in
 ## a
 
 ### default value
-Components might have a default value, of course. One could easily initialize a record and omit already defaulted values. Every value that has a default value which will be used as the default value to initialize.
+Components might have a default value, of course. One could easily initialize a record and omit already defaulted values. Every record member having a default value will be initialized with this value.
 
 ```Ada
 type Car (wheelcount : positive := 4) is -- default value for wheels
@@ -64,14 +64,18 @@ Subtype is compatible to parent and sibling types. Therefor it is not a "new" su
 One can assign type - subtype and the other way round, without having the compiler complaining about the assignment. If there are assignments of two different types (e.g. Hour... - Month... - they are declared as types, not subtypes) the compiler will complain about it.
 
 Therefor legal assignments are:  
-1, 2, 4,
+1, 2, 4
+
 Nevertheless, 2 can lead to an error during compile time or runtime if the range does not fit.
 
 # Task 3
 
 ## a
-Exceptions are automatically raised propagated a program's structure. In case a exception `e` is not handled in U, control leaves U and might be handled here. If not, again, U is left and propagated through the program until the program terminates. This can be build with `goto` statements, too, but only in knowledge of the callstack.
-When an exception is raised and it is not handled, there occurs a runtime error with information where the first entrance into the callstack was and where the respective raise statement is located. This information is hard to rebuild with `goto` statements. It even gets harder considering exception messages, which can be specified, too. Then a simple `goto` is not enough as no information can be passed to the handler without using global data structures.  
+Exceptions are automatically raised and propagated trough a program's structure. In case an exception 'e' is not handled in 'U' and 'U' is left to 'V', 'e' might be handled in 'V'. If not, again 'V' is left and 'e' will be propagated trough the whole program until the program terminates.
+
+This can be build with `goto` statements, too, but only in knowledge of the callstack.
+
+If an exception is raised and is not handled, it occurs a runtime error containing the information where the first entrance into the callstack was and where the respective raise statement is located. This information is hard to rebuild with `goto` statements. It even gets harder considering exception messages, which can be specified, too. Then a simple `goto` is not enough as no information can be passed to the handler without using global data structures.  
 
 In a nutshell, exceptions are a much more modular solutions than `goto` statements.
 
@@ -151,5 +155,10 @@ end Navigation;
 ## b
 
 `Parser/parser.adb`  
-Error handling using exceptions is a good way for providing a centralized and clean way of error handling. When using simple return statements, it is not clear, which error when has to be handled. Exceptions provide a clean centralized solution by attaching error handlers to the procedure where it is raised. On the other hand exception handling bloates the code. For smaller code fragments and non-production code snippets exceptions are probably over engineered if not really necessary for reasons like failing fast and providing fall back solutions for some computation (e.g. nicely shown in task 3).   
-In the case of a parser, exceptions are probably the better solution. Exceptions should be used when really an error like an invalid character occurs. This needs not be handled and if it is not recoverable, the program should fail with some helpful error message. Error Handling becomes a central feature of the parser and should therefore not be done using return statements that need further interpretations.
+Error handling using exceptions is a good way for providing a centralized and clean way of error handling. By using simple return statements it is not clear, when which error hast to be handled. Exceptions provide a clean centralized solution by attaching error handlers to the procedure raising them. 
+
+On the other hand exception handling bloats the code. For smaller code fragments and non-production code snippets, exceptions are probably over-engineered if not really necessary for reasons like 'failing fast' or providing fall back solutions for some computation (e.g. nicely shown in task 3).
+
+In case of a parser, exceptions are probably the better solution. Exceptions should be used if an real error, like an invalid character, occurs. This needs to be handled and if it is not recoverable, the program should fail with some helpful error message. 
+
+Error handling becomes a central feature of a parser and should therefore not be done by using return statements which needs further interpretations.

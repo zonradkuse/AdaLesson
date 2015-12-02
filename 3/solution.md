@@ -102,6 +102,33 @@ content must not be null.
 and dangling references are thus prevented.  
 
 # Task 2
+Subprograms as parameter (or callbacks) could expand the scope of the calling 
+procedure artificially.
+
+```Ada
+procedure main is -- this is not meant to be compiling, just to give an idea
+    procedure test (cb : access procedure(id : Integer));
+    
+    procedure problem 
+    is
+        procedure mycb ( id : Integer);
+    begin
+        test(mycb'Access);
+    end problem;
+begin
+    problem;
+end main;
+```
+
+Using subprograms can be a very convenient way dealing with asynchronous 
+behaviour or implementing frameworks. Frameworks could be easily implemented 
+by giving the developer an interface where methods can be registered. 
+Javascript makes heavy use of this which leads to so called 
+"callback hells" quite often. There are some workarounds which make this a 
+little handier but is sometimes still considered as unintuitive code. This
+shows that the usage of such a feature should be well considered. (In the case 
+of js callbacks the only deliberate way dealing with async tasks are 
+callbacks, indeed).  
 
 # Task 3
 

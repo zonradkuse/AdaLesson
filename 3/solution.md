@@ -75,6 +75,25 @@ granted by b.
 ### 12
 *not valid* since q is not aliased.
 
+## b
+By using access types - or pointers in general - it is not clear where 
+the data is really manipulated. Only the address is passed to the function
+and it is no longer necessary to assign some return value to the 
+manipulated variable. This can surely be compared with gotos as one could jump
+into a manipulating section and back again.
+Even worse: the manipulating method deallocates the memory and produces 
+that way a so called dangling reference. The referenced data could be set 
+to `null`, too, which is of course bad when a developer tried to find out 
+where the value was set to `null`.  
+
+With great power comes great responsibility (lol, spiderman). When pointers
+are used in a clear and "contracted" fashion, they can be really helpful. 
+Imagine a huge matrix (a few 100k entries). Not passing the matrix's 
+reference into a method causes an unnecessary deep-copy. The same holds 
+for gotos. Gotos are heavily used in parsers/compilers (and the *nix kernel 
+- but this is some really weird piece of software) as they provide a 
+nice and understandable way to build state machines.    
+
 # Task 2
 
 # Task 3

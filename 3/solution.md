@@ -94,10 +94,11 @@ for gotos. Gotos are heavily used in parsers/compilers (and the *nix kernel
 - but this is some really weird piece of software) as they provide a 
 nice and understandable way to build state machines.    
 
-Ada gives some helpers when dealing with access types:
-* `not null` keyword when declaring access types in order to indicate that the
+Ada gives some helpers when dealing with access types:  
+
+ - `not null` keyword when declaring access types in order to indicate that the
 content must not be null.
-* deallocating memory of a pointer in a nested method is forbidden 
+ - deallocating memory of a pointer in a nested method is forbidden 
 and dangling references are thus prevented.  
 
 # Task 2

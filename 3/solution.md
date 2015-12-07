@@ -103,7 +103,10 @@ and dangling references are thus prevented.
 
 # Task 2
 Subprograms as parameter (or callbacks) could expand the scope of the calling 
-procedure artificially.
+procedure artificially. The subprogram, which is used as a parameter, has to be visible to the calling procedure.
+So if they are in different packages for example, you have to make clear that the subprogram can be called from other packages.
+
+Furthermore the readability is worse for small programs like shown below.
 
 ```Ada
 procedure main is -- this is not meant to be compiling, just to give an idea

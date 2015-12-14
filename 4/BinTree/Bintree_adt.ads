@@ -11,6 +11,8 @@ package BinTree_ADT is
 	procedure Delete(tree : in out BinTree_Access_T; key : Key_T);
 	procedure PrintList(tree : in BinTree_Access_T);
 	procedure PrintTree(tree : in BinTree_Access_T);
+    function Search(tree : BinTree_Access_T; key : Key_T) return Element_T;
+	NoSuchElement : exception;
 
 private
 	type BinTree_T;

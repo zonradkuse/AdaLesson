@@ -105,6 +105,19 @@ package body BinTree_ADT is
 		end if;
 	end Delete;
 
+	function Search(tree : BinTree_Access_T; key : Key_T) return Element_T is
+	begin
+		if tree = null then
+			raise NoSuchElement;
+		elsif key = tree.key then
+			return tree.content;
+		elsif key <= tree.key then
+			return Search(tree.left,key);
+		else
+			return Search(tree.right,key);
+		end if;
+	end Search;
+
 	procedure PrintList(tree : in BinTree_Access_T) is
 		procedure PrintListRecursive(tree : in BinTree_Access_T) is
 		begin

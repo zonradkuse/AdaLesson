@@ -28,6 +28,8 @@ begin
    PrintTree(tree);
    Delete(tree,6);
    PrintTree(tree);
+   Put(Search(tree,2));
+   Ada.Text_IO.New_Line;
    while not Ada.Characters.Handling.Is_Line_Terminator(button) loop
       Ada.Text_IO.Get_Immediate(button);
    end loop;

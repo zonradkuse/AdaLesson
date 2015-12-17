@@ -21,6 +21,12 @@ package body BinTree_ADT is
 
 	procedure Dealloc(tree : in out BinTree_Access_T) is
 	begin
+		if tree.left /= null then
+			Dealloc(tree.left);
+		end if;
+		if tree.right /= null then
+			Dealloc(tree.right);
+		end if;
 		Free(tree);
     end Dealloc;
 
@@ -64,7 +70,7 @@ package body BinTree_ADT is
 				if temp.right = null then
 					tree.content := temp.content;
 					tree.key := temp.key;
-					Dealloc(tree);
+					Dealloc(temp);
 					upper.left := null;
 				else
 					while temp.right /= null loop
@@ -82,7 +88,7 @@ package body BinTree_ADT is
 				if temp.left = null then
 					tree.content := temp.content;
 					tree.key := temp.key;
-					Dealloc(tree);
+					Dealloc(temp);
 					upper.right := null;
 				else
 					while temp.left /= null loop

@@ -24,6 +24,7 @@ geometry: margin=1in
    hopefully done.
 
 ## Task 3
+  ![alt text](/img/AdaError.jpg)
 
 # Task 4.3
 

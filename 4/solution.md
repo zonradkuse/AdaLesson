@@ -29,7 +29,7 @@ geometry: margin=1in
 
 1) c.
 
-2) a. oder b.
+2) c.
 
 3) a.
 
@@ -39,17 +39,18 @@ geometry: margin=1in
 
 6) b.
 
-7) a. oder e.
+7) a.
 
 8) c.
 
-9 b.
+9) b.
 
 11) c.
 
-12) a. -> geht nicht.
-    b. -> geht nicht.
-    c. -> ja
-    d. -> ja
-    e. -> ja
-    f. -> geht nicht.
+12)   
+    a. -> Does not work.  Type mismatch (and syntax error).
+    b. -> Does not work.  Type mismatch (and syntax error).
+    c. -> Works.  C is set to (F,W,W,F).
+    d. -> Works.  D is set to (F,W,W,F).
+    e. -> Does not work. Constraint error.  
+    f. -> Does not work. Type mismatch (and syntax error).

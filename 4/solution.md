@@ -48,9 +48,9 @@ geometry: margin=1in
 11) c.
 
 12)   
-    a. -> Does not work.  Type mismatch (and syntax error).
-    b. -> Does not work.  Type mismatch (and syntax error).
-    c. -> Works.  C is set to (F,W,W,F).
-    d. -> Works.  D is set to (F,W,W,F).
-    e. -> Does not work. Constraint error.  
-    f. -> Does not work. Type mismatch (and syntax error).
+    a. -> Does not work.  Type mismatch (and syntax error).  
+    b. -> Does not work.  Type mismatch (and syntax error).  
+    c. -> Works.  C is set to (F,W,W,F).  
+    d. -> Works.  D is set to (F,W,W,F).  
+    e. -> Does not work. Constraint error.    
+    f. -> Does not work. Type mismatch (and syntax error).  

@@ -24,7 +24,15 @@ geometry: margin=1in
    hopefully done.
 
 ## Task 3
-  ![Simulator shows error](img/AdaError.jpg)
+  ![Simulator shows error](img/AdaError.jpg)  
+  ![LED C Cross Compiler](img/led1.jpg)  
+  ![LED C Cross Compiler](img/led2.jpg)  
+  
+  Idea: Crosscompile hardware driver layer with C and use it with Ada. This will
+  complicated as hell but writing drivers in Ada will probably take to much time.
+  We provide a first Makefile for usage in linux systems which cross compiles 
+  a C program and is able to install it on an arduino.
+
 
 # Task 4.3
 

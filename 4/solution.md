@@ -30,7 +30,7 @@ geometry: margin=1in
 
    We suppose the following set of entities/tasks and a layered software 
    stack (much ASCII art).
-
+\newpage
 
 ```
     --------------
@@ -41,21 +41,53 @@ geometry: margin=1in
             |                              \
             | optional layer - TCP socket   \
 ---------------------------               --------------
-------\                                   | SQL Server |
-|logic|                                   |            | 
-|     |                                   --------------
--------                                    ^
-   ------------------  ------------------- | Writes Errors/Heatings/Warnings
-   | Ada Dispatcher |--| Ada             |/  into the database - necessary
-   | Tasks          |  | Data Management |   when tracking errors or providing
-   ------------------  -------------------   a heating history (which is probably
-                                             a good idea
-
-
-
+------\         ----------------          | SQL Server |
+|logic|         | Socket Server|          | would run  |
+|     |         |              |          | on raspi   | 
+|     |         |     View     |          --------------
+-------         ----------------           ^
+   ------------------ | ------------------- | Writes Errors/Heatings/Warnings
+   | Ada Dispatcher |-|-| Ada             |/  into the database - necessary
+   | Tasks          | | | Data Management |   when tracking errors, providing
+   |                | | |    Model        |   a heating history or recovering  
+   ------------------ |/-------------------   to a last known state.
+             |        /          |             
+             |       /           |
+             |      /            |
+             |     /      ---------------------------------------
+             |    /       |ErrorCodeDefinitions                 |
+             |   /        |Heating Plan/ Is,shouldmin,max temps |
+             |  /         ---------------------------------------
+             | /
+   ----------------------        -----------------------
+   | Ada HW Controller  |--------| LCD "interactor"    |
+   | impl. heating up,..|        -----------------------
+   ----------------------
+            |
+            |
+- - - - - - | - - - - - - -
+            |
+      -----------------------
+      | Ada Hardware Wrapper |
+      -----------------------
+                        |
+        Hardware Layer  |
 ---------------------------
+
+C-Entities: LCD, Heater, Fan, Sensors - How to implement sensor changes? IRs? 
+
 ```
 
+The SQL Server is a good idea if we really want to target some fancy webstuff.
+If not, a simple data structure, which backs up itself to memory could be enough.  
+Using SQL has the advantage that we do not need to send known data 
+to the server. Thus we do not need to keep track of the data we have to send.
+Everytime when an event (heating, error, warning,..) a data package can be sent
+to the pi.  
+
+Some example abstract data types: ErrorCode, HeatingPlan,
+
+ErrorCodes could be leveled into warning, nope or fatal.
 
 ## Task 3
   ![Simulator shows error](img/AdaError.jpg)  

@@ -1,24 +1,23 @@
+with SimpleParent; use SimpleParent;
 with Ada.Text_IO; use Ada;
 procedure Simple is
 
-   type A_T is  abstract tagged null record;
-
    type B_T is new A_T with record
-        a : Boolean;
+        c : Character;
    end record;
 
-   procedure print(A : in out A_T) is
-   begin
-      Ada.Text_IO.Put_Line ("A");
-   end print;
+  
 
    procedure print(B : in out B_T)
    is
    begin
-      Ada.Text_IO.Put_Line ("B");
+      Ada.Text_IO.Put(B.c);
    end print;
-   b : B_T := (A_T => true);
-   a : A_T'Class := b;
+
+  b : B_T := (c => 'd');
+  ab : A_T'Class := b;
+  a : A_T;
 begin
-    print(a); -- should print B
+  print(ab); -- should print B
+  print(a);   -- should print A
 end Simple;

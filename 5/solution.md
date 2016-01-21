@@ -33,38 +33,8 @@ The function signature of `Put` differs in the parameters. Thus there is a
 signature for Characters and one for Strings. This is the polymorphism.
 
 ### dynamic dispatch
-For dynamic dispatching a class hierarchy is needed. The following
-code example illustrates the use of this principle. `a` is of the type of the
-base class and does not provide the needed function. Still it can be resolved
-as the signature of `bla` matches.
-```Ada95
-with Ada; use Ada;
-procedure Simple is
-
-   type A_T is tagged record
-        null;
-   end record;
-
-   type B_T is new A_T with record
-        null;
-   end record;
-
-   procedure print(A : in out A_T) is
-   begin
-      Ada.Text_Io.Put_Line ("A");
-   end print;
-
-   procedure print(B : in out B_T)
-   is
-   begin
-      Ada.Text_Io.Put_Line ("B");
-   end print;
-   b : B_T;
-   a : A_T'Class := b;
-begin
-    print(a); -- should print B
-end Simple;
-```
+For dynamic dispatching a class hierarchy is needed. The provided `Simple`
+code example illustrates the use of this principle. 
 
 ## c
 The Ada type system expects the type `GraphObj`. Although
